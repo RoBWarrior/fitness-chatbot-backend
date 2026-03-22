@@ -62,4 +62,4 @@ async def initial_query(
 
     except Exception as e:
         print(f"❌ Error in query: {e}")
-        return {"query": query, "answer": "Error occurred"}
+        return {"query": query, "answer": f"Error occurred: {str(e)}"}

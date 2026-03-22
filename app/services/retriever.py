@@ -18,6 +18,10 @@ def store_document(text: str, embedding: list[float], user_id: int):
 def query_similar(query: str, user_id: int, top_k: int = 3):
     try:
         query_embedding = get_embedding(query)
+        if not query_embedding:
+            print("⚠️ Skipping vector search because embedding failed.")
+            return []
+            
         collection = get_collection()
         results = collection.query(
             query_embeddings=[query_embedding], 
@@ -32,6 +36,7 @@ def query_similar(query: str, user_id: int, top_k: int = 3):
         return docs
     except Exception as e:
         print(f"An error occured while fetching the query with the document {e}")
+        return []
 
 def delete_document(doc_id: str):
     try:

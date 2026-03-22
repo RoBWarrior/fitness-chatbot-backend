@@ -20,7 +20,20 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 client = None
 gemini_ready = False
 
-if OPENAI_API_KEY and OpenAI:
+# Read preferred provider from env, default to openai if not set
+PREFERRED_PROVIDER = os.getenv("EMBEDDING_PROVIDER", "openai").lower()
+
+if PREFERRED_PROVIDER == "openai" and OPENAI_API_KEY and OpenAI:
+    client = OpenAI(api_key=OPENAI_API_KEY)
+    PROVIDER = "openai"
+
+elif PREFERRED_PROVIDER == "gemini" and GOOGLE_API_KEY and genai:
+    genai.configure(api_key=GOOGLE_API_KEY)
+    PROVIDER = "gemini"
+    gemini_ready = True
+
+# Fallbacks if the preferred isn't set up correctly
+elif OPENAI_API_KEY and OpenAI:
     client = OpenAI(api_key=OPENAI_API_KEY)
     PROVIDER = "openai"
 

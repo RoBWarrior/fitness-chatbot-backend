@@ -1,9 +1,17 @@
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
 import os
+import sys
+
+# SQLite workaround for ChromaDB on platforms with outdated sqlite3 (like Render)
+try:
+    __import__('pysqlite3')
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+except ImportError:
+    pass
+
 import json
+from dotenv import load_dotenv
+load_dotenv()  # Load environment variables from .env file
+
 from fastapi import FastAPI
 from app.api.routes import health, upload, workflow, query, chat, auth
 app = FastAPI(title="Workflow Builder Backend")
