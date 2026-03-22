@@ -18,6 +18,12 @@ from app.api.routes import health, upload, workflow, query, chat, auth
 
 app = FastAPI(title="Workflow Builder Backend")
 
+from app.core.db import create_tables
+
+@app.on_event("startup")
+async def startup_event():
+    create_tables()
+
 # Allow CORS for deployment
 app.add_middleware(
     CORSMiddleware,
