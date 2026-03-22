@@ -10,3 +10,4 @@ sentence-transformers
 psycopg2-binary 
 sqlalchemy
 passlib[bcrypt]
+pysqlite3-binary
