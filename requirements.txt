@@ -1,0 +1,12 @@
+fastapi 
+uvicorn[standard] 
+python-multipart
+pymupdf 
+chromadb 
+openai
+python-dotenv
+google.generativeai
+sentence-transformers
+psycopg2-binary 
+sqlalchemy
+passlib[bcrypt]
