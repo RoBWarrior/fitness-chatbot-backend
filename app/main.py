@@ -13,10 +13,19 @@ from dotenv import load_dotenv
 load_dotenv()  # Load environment variables from .env file
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import health, upload, workflow, query, chat, auth
+
 app = FastAPI(title="Workflow Builder Backend")
 
-
+# Allow CORS for deployment
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins (update this to your Vercel URL later for security)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 @app.get("/")
 async def root():
     return {"message": "Hello World"}

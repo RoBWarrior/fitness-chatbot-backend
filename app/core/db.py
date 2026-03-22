@@ -1,17 +1,11 @@
 import psycopg2
 from psycopg2 import Error
-from app.core.config import POSTGRES_DB, POSTGRES_HOST, POSTGRES_PASSWORD, POSTGRES_PORT, POSTGRES_USER
+from app.core.config import DATABASE_URL
 
 def get_db_connection():
     conn = None
     try:
-        conn = psycopg2.connect(
-            database=POSTGRES_DB,
-            user=POSTGRES_USER,
-            password=POSTGRES_PASSWORD,
-            host=POSTGRES_HOST,
-            port=POSTGRES_PORT
-        )
+        conn = psycopg2.connect(DATABASE_URL)
         print("✅ Database connection successful")
         return conn
     except Exception as e:
