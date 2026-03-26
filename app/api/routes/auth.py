@@ -40,9 +40,11 @@ async def login(user: UserAuth):
     # Wait, let's look at schema:
     # 0: user_id (SERIAL)
     # 1: username (VARCHAR)
-    # 2: created_at (TIMESTAMP)
-    # 3: password_hash (VARCHAR) -> Because we ALTER TABLE ADD COLUMN
-    stored_hash = db_user[3]
+    # We changed get_user to SELECT user_id, username, password_hash
+    # 0: user_id
+    # 1: username
+    # 2: password_hash
+    stored_hash = db_user[2]
     
     if not pwd_context.verify(user.password, stored_hash):
         raise HTTPException(status_code=400, detail="Invalid username or password")

@@ -94,7 +94,7 @@ def get_user(username: str):
     conn = get_db_connection()
     try:
         cur = conn.cursor()
-        cur.execute("SELECT * FROM users WHERE username=%s;", (username,))
+        cur.execute("SELECT user_id, username, password_hash FROM users WHERE username=%s;", (username,))
         return cur.fetchone()
     except Exception as e:
         print(f"Error fetching user: {e}")
