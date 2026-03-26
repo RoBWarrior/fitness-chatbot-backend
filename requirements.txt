@@ -9,4 +9,5 @@ google.generativeai
 psycopg2-binary 
 sqlalchemy
 passlib[bcrypt]
+bcrypt==4.0.1
 pysqlite3-binary
